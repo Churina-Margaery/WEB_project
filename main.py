@@ -3,6 +3,7 @@ from flask import Flask
 import sqlite3
 import random
 import os
+from flask import send_from_directory
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -53,9 +54,9 @@ def compilation():
                 n = random.choice(range(1, 15))
             lst.append(n)
         for elem in lst:
-            print(result[elem])
-            print("Ответ:", answers[elem])
-            print()
+            print(result[elem], file=f)
+            print("Ответ:", answers[elem], file=f)
+            print("", file=f)
 
         string = """SELECT * FROM '22'"""
         res = cur.execute(string).fetchall()
@@ -68,9 +69,9 @@ def compilation():
                 n = random.choice(range(1, 15))
             lst.append(n)
         for elem in lst:
-            print(result[elem])
-            print("Ответ:", answers[elem])
-            print()
+            print(result[elem], file=f)
+            print("Ответ:", answers[elem], file=f)
+            print("", file=f)
 
         string = """SELECT * FROM '23'"""
         res = cur.execute(string).fetchall()
@@ -83,9 +84,9 @@ def compilation():
                 n = random.choice(range(1, 15))
             lst.append(n)
         for elem in lst:
-            print(result[elem])
-            print("Ответ:", answers[elem])
-            print()
+            print(result[elem], file=f)
+            print("Ответ:", answers[elem], file=f)
+            print("", file=f)
 
         string = """SELECT * FROM '24'"""
         res = cur.execute(string).fetchall()
@@ -98,9 +99,9 @@ def compilation():
                 n = random.choice(range(1, 15))
             lst.append(n)
         for elem in lst:
-            print(result[elem])
-            print("Ответ:", answers[elem])
-            print()
+            print(result[elem], file=f)
+            print("Ответ:", answers[elem], file=f)
+            print("", file=f)
 
         string = """SELECT * FROM '25'"""
         res = cur.execute(string).fetchall()
@@ -113,9 +114,9 @@ def compilation():
                 n = random.choice(range(1, 15))
             lst.append(n)
         for elem in lst:
-            print(result[elem])
-            print("Ответ:", answers[elem])
-            print()
+            print(result[elem], file=f)
+            print("Ответ:", answers[elem], file=f)
+            print("", file=f)
 
         string = """SELECT * FROM '26'"""
         res = cur.execute(string).fetchall()
@@ -128,14 +129,19 @@ def compilation():
                 n = random.choice(range(1, 15))
             lst.append(n)
         for elem in lst:
-            print(result[elem])
-            print("Ответ:", answers[elem])
-            print()
+            print(result[elem], file=f)
+            print("Ответ:", answers[elem], file=f)
+            print("", file=f)
         f.close()
         f = open(file, encoding="utf8", mode="r")
         print(f.read())
         return render_template('result.html', link=url_for('static', filename='css/style.css'))
                                # comp_file=url_for('static', filename='compilation.txt'))
+
+
+@app.route('/download/<filename>')
+def download(filename):
+    return send_from_directory(filename=filename)
 
 
 @app.route('/random_tasks', methods=['POST', 'GET'])
