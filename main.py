@@ -14,6 +14,16 @@ def index():
     return render_template('main_page.html', link=url_for('static', filename='css/style.css'))
 
 
+@app.route('/format')
+def ans_format():
+    return render_template('format.html', link=url_for('static', filename='css/style.css'))
+
+
+@app.route('/materials')
+def materials():
+    return render_template('materials.html', link=url_for('static', filename='css/style.css'))
+
+
 @app.route('/compilation', methods=['POST', 'GET'])
 def compilation():
     if request.method == 'GET':
@@ -200,7 +210,8 @@ def random_tasks():
         f.close()
         f = open(file, 'w').close()
         print("4", open(file, 'r').read())
-        return render_template('result.html', link=url_for('static', filename='css/style.css'), ready=line, verdict=final)
+        return render_template('result.html', link=url_for('static', filename='css/style.css'), ready=line,
+                               verdict=final)
 
 
 @app.route('/21')

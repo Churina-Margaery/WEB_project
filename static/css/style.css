@@ -1,3 +1,7 @@
+div {
+text-align:  center;
+font: 'FreeMono', sans-serif;
+}
 button {
   padding: 0;
   border: none;
