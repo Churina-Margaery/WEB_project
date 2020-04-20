@@ -3,7 +3,6 @@ from flask import Flask
 import sqlite3
 import random
 import os
-from flask import send_from_directory
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key_y1t2r3e4w5q6_'
@@ -13,34 +12,38 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key_y1t2r3e4w5q6_'
 @app.route('/index/')
 @app.route('/start/')
 def index():
+    """ Функция с шаблоном стартовой страницы """
     return render_template('main_page.html',
                            link=url_for('static', filename='css/style.css'))
 
 
 @app.route('/format')
 def ans_format():
+    """ Функция с шаблоном памятки по вводу ответов """
     return render_template('format.html',
                            link=url_for('static', filename='css/style.css'))
 
 
 @app.route('/materials')
 def materials():
+    """ Функция с шаблоном отображения справочных материалов """
     return render_template('materials.html', link=url_for('static',
                            filename='css/style.css'))
 
 
 @app.route('/compilation', methods=['POST', 'GET'])
 def compilation():
+    """ Функция подборки задач по их количеству """
     if request.method == 'GET':
         return render_template('compilation.html', link=url_for('static',
                                filename='css/style.css'))
     elif request.method == 'POST':
-        twenty_fst = request.form["21"]
-        twenty_snd = request.form["22"]
-        twenty_trd = request.form["23"]
-        twenty_fth = request.form["24"]
-        twenty_fifth = request.form["25"]
-        twenty_sixth = request.form["26"]
+        twenty_fst = request.form["answer_1"]
+        twenty_snd = request.form["answer_2"]
+        twenty_trd = request.form["answer_3"]
+        twenty_fth = request.form["answer_4"]
+        twenty_fifth = request.form["answer_5"]
+        twenty_sixth = request.form["answer_6"]
         con = sqlite3.connect("tasks.db")
         cur = con.cursor()
         string = """SELECT * FROM '21'"""
@@ -48,6 +51,12 @@ def compilation():
         result = [elem[1] for elem in res]
         answers = [elem[2] for elem in res]
         lst = []
+        try:
+            twenty_fst = int(twenty_fst)
+            if twenty_fst < 1 or twenty_fst > 5:
+                twenty_fst = 5
+        except Exception:
+            twenty_fst = 2
         for i in range(twenty_fst):
             n = random.choice(range(1, 15))
             while n in lst:
@@ -55,14 +64,19 @@ def compilation():
             lst.append(n)
         ready_1 = ""
         for elem in lst:
-            ready_1 += (result[elem] + "\n" + "Ответ: " + answers[elem]
-                        + "\n")
+            ready_1 += (result[elem] + "\n" + "Ответ: " + answers[elem])
 
         string = """SELECT * FROM '22'"""
         res = cur.execute(string).fetchall()
         result = [elem[1] for elem in res]
         answers = [elem[2] for elem in res]
         lst = []
+        try:
+            twenty_snd = int(twenty_snd)
+            if twenty_snd < 1 or twenty_snd > 5:
+                twenty_snd = 5
+        except Exception:
+            twenty_snd = 2
         for i in range(twenty_snd):
             n = random.choice(range(1, 15))
             while n in lst:
@@ -70,14 +84,19 @@ def compilation():
             lst.append(n)
         ready_2 = ""
         for elem in lst:
-            ready_2 += (result[elem] + "\n" + "Ответ: " + answers[elem]
-                        + "\n")
+            ready_2 += (result[elem] + "\n" + "Ответ: " + answers[elem])
 
         string = """SELECT * FROM '23'"""
         res = cur.execute(string).fetchall()
         result = [elem[1] for elem in res]
         answers = [elem[2] for elem in res]
         lst = []
+        try:
+            twenty_trd = int(twenty_trd)
+            if twenty_trd < 1 or twenty_trd > 5:
+                twenty_trd = 5
+        except Exception:
+            twenty_trd = 2
         for i in range(twenty_trd):
             n = random.choice(range(1, 15))
             while n in lst:
@@ -85,14 +104,19 @@ def compilation():
             lst.append(n)
         ready_3 = ""
         for elem in lst:
-            ready_3 += (result[elem] + "\n" + "Ответ: " + answers[elem]
-                        + "\n")
+            ready_3 += (result[elem] + "\n" + "Ответ: " + answers[elem])
 
         string = """SELECT * FROM '24'"""
         res = cur.execute(string).fetchall()
         result = [elem[1] for elem in res]
         answers = [elem[2] for elem in res]
         lst = []
+        try:
+            twenty_fth = int(twenty_fth)
+            if twenty_fth < 1 or twenty_fth > 5:
+                twenty_fth = 5
+        except Exception:
+            twenty_fth = 2
         for i in range(twenty_fth):
             n = random.choice(range(1, 15))
             while n in lst:
@@ -100,14 +124,19 @@ def compilation():
             lst.append(n)
         ready_4 = ""
         for elem in lst:
-            ready_4 += (result[elem] + "\n" + "Ответ: " + answers[elem]
-                        + "\n")
+            ready_4 += (result[elem] + "\n" + "Ответ: " + answers[elem])
 
         string = """SELECT * FROM '25'"""
         res = cur.execute(string).fetchall()
         result = [elem[1] for elem in res]
         answers = [elem[2] for elem in res]
         lst = []
+        try:
+            twenty_fifth = int(twenty_fifth)
+            if twenty_fifth < 1 or twenty_fifth > 5:
+                twenty_fifth = 5
+        except Exception:
+            twenty_fifth = 2
         for i in range(twenty_fifth):
             n = random.choice(range(1, 15))
             while n in lst:
@@ -115,14 +144,19 @@ def compilation():
             lst.append(n)
         ready_5 = ""
         for elem in lst:
-            ready_5 += (result[elem] + "\n" + "Ответ: " + answers[elem]
-                        + "\n")
+            ready_5 += (result[elem] + "\n" + "Ответ: " + answers[elem])
 
         string = """SELECT * FROM '26'"""
         res = cur.execute(string).fetchall()
         result = [elem[1] for elem in res]
         answers = [elem[2] for elem in res]
         lst = []
+        try:
+            twenty_sixth = int(twenty_sixth)
+            if twenty_sixth < 1 or twenty_sixth > 5:
+                twenty_sixth = 5
+        except Exception:
+            twenty_sixth = 2
         for i in range(twenty_sixth):
             n = random.choice(range(1, 15))
             while n in lst:
@@ -130,8 +164,7 @@ def compilation():
             lst.append(n)
         ready_6 = ""
         for elem in lst:
-            ready_6 += (result[elem] + "\n" + "Ответ: " + answers[elem]
-                      + "\n")
+            ready_6 += (result[elem] + "\n" + "Ответ: " + answers[elem])
         return render_template('your_tasks.html', link=url_for('static',
                                filename='css/style.css'),
                                ready_1=ready_1, ready_2=ready_2,
@@ -141,6 +174,7 @@ def compilation():
 
 @app.route('/random_tasks', methods=['POST', 'GET'])
 def random_tasks():
+    """ Функция работы случайного варианта """
     lst = []
     data = []
     con = sqlite3.connect("tasks.db")
@@ -231,12 +265,14 @@ def random_tasks():
 
 @app.route('/21')
 def first():
+    """ Функция с меню по задачам 21 типа """
     return render_template('first.html', link=url_for('static',
                            filename='css/style.css'))
 
 
 @app.route('/21/<int:number>', methods=['POST', 'GET'])
 def first_tasks(number):
+    """ Функция для проверки задач 21 типа """
     con = sqlite3.connect("tasks.db")
     cur = con.cursor()
     string = """SELECT * FROM "21"
@@ -266,13 +302,14 @@ def first_tasks(number):
 
 @app.route('/21/answers')
 def first_ans():
+    """ Функция с шаблоном ответов по задачам 21 типа """
     con = sqlite3.connect("tasks.db")
     cur = con.cursor()
     string = """SELECT * FROM '21'"""
     res = cur.execute(string).fetchall()
     result = [elem[2] for elem in res]
     answer_1, answer_2, answer_3, answer_4, answer_5, answer_6, \
-    answer_7, answer_8, answer_9, answer_10, answer_11, \
+        answer_7, answer_8, answer_9, answer_10, answer_11, \
         answer_12, answer_13, answer_14, answer_15 = result
     con.close()
     f_n = 'css/style.css'
@@ -290,6 +327,7 @@ def first_ans():
 
 @app.route('/22')
 def second():
+    """ Функция с меню по задачам 22 типа """
     f_n = 'css/style.css'
     return render_template('second.html',
                            link=url_for('static', filename=f_n))
@@ -297,6 +335,7 @@ def second():
 
 @app.route('/22/<int:number>', methods=['POST', 'GET'])
 def second_tasks(number):
+    """ Функция для проверки задач 22 типа """
     con = sqlite3.connect("tasks.db")
     cur = con.cursor()
     string = """SELECT * FROM "22"
@@ -326,13 +365,14 @@ def second_tasks(number):
 
 @app.route('/22/answers')
 def second_ans():
+    """ Функция с шаблоном ответов по задачам 22 типа """
     con = sqlite3.connect("tasks.db")
     cur = con.cursor()
     string = """SELECT * FROM '22'"""
     res = cur.execute(string).fetchall()
     result = [elem[2] for elem in res]
     answer_1, answer_2, answer_3, answer_4, answer_5, answer_6,\
-    answer_7, answer_8, answer_9, answer_10, answer_11, \
+        answer_7, answer_8, answer_9, answer_10, answer_11, \
         answer_12, answer_13, answer_14, answer_15 = result
     con.close()
     f_n = 'css/style.css'
@@ -350,6 +390,7 @@ def second_ans():
 
 @app.route('/23')
 def third():
+    """ Функция с меню по задачам 23 типа """
     f_n = 'css/style.css'
     return render_template('third.html',
                            link=url_for('static', filename=f_n))
@@ -357,6 +398,7 @@ def third():
 
 @app.route('/23/<int:number>', methods=['POST', 'GET'])
 def third_tasks(number):
+    """ Функция для проверки задач 23 типа """
     con = sqlite3.connect("tasks.db")
     cur = con.cursor()
     string = """SELECT * FROM "23"
@@ -386,13 +428,14 @@ def third_tasks(number):
 
 @app.route('/23/answers')
 def third_ans():
+    """ Функция с шаблоном ответов по задачам 23 типа """
     con = sqlite3.connect("tasks.db")
     cur = con.cursor()
     string = """SELECT * FROM '23'"""
     res = cur.execute(string).fetchall()
     result = [elem[2] for elem in res]
-    answer_1, answer_2, answer_3, answer_4, answer_5, answer_6, answer_7,\
-    answer_8, answer_9, answer_10, answer_11, \
+    answer_1, answer_2, answer_3, answer_4, answer_5, answer_6,\
+        answer_7, answer_8, answer_9, answer_10, answer_11, \
         answer_12, answer_13, answer_14, answer_15 = result
     con.close()
     f_n = 'css/style.css'
@@ -410,6 +453,7 @@ def third_ans():
 
 @app.route('/24')
 def fourth():
+    """ Функция с меню по задачам 24 типа """
     f_n = 'css/style.css'
     return render_template('fourth.html',
                            link=url_for('static', filename=f_n))
@@ -417,6 +461,7 @@ def fourth():
 
 @app.route('/24/<int:number>', methods=['POST', 'GET'])
 def fourth_tasks(number):
+    """ Функция для проверки задач 24 типа """
     con = sqlite3.connect("tasks.db")
     cur = con.cursor()
     string = """SELECT * FROM "24"
@@ -446,13 +491,14 @@ def fourth_tasks(number):
 
 @app.route('/24/answers')
 def fourth_ans():
+    """ Функция с шаблоном ответов по задачам 24 типа """
     con = sqlite3.connect("tasks.db")
     cur = con.cursor()
     string = """SELECT * FROM '24'"""
     res = cur.execute(string).fetchall()
     result = [elem[2] for elem in res]
     answer_1, answer_2, answer_3, answer_4, answer_5, answer_6,\
-    answer_7, answer_8, answer_9, answer_10, answer_11, \
+        answer_7, answer_8, answer_9, answer_10, answer_11, \
         answer_12, answer_13, answer_14, answer_15 = result
     con.close()
     f_n = 'css/style.css'
@@ -470,6 +516,7 @@ def fourth_ans():
 
 @app.route('/25')
 def fifth():
+    """ Функция с шаблоном ответов по задачам 25 типа """
     f_n = 'css/style.css'
     return render_template('fifth.html',
                            link=url_for('static', filename=f_n))
@@ -477,6 +524,7 @@ def fifth():
 
 @app.route('/25/<int:number>', methods=['POST', 'GET'])
 def fifth_tasks(number):
+    """ Функция для проверки задач 25 типа """
     con = sqlite3.connect("tasks.db")
     cur = con.cursor()
     string = """SELECT * FROM "25"
@@ -507,13 +555,14 @@ def fifth_tasks(number):
 
 @app.route('/25/answers')
 def fifth_ans():
+    """ Функция с шаблоном ответов по задачам 25 типа """
     con = sqlite3.connect("tasks.db")
     cur = con.cursor()
     string = """SELECT * FROM '25'"""
     res = cur.execute(string).fetchall()
     result = [elem[2] for elem in res]
     answer_1, answer_2, answer_3, answer_4, answer_5, answer_6,\
-    answer_7, answer_8, answer_9, answer_10, answer_11, \
+        answer_7, answer_8, answer_9, answer_10, answer_11, \
         answer_12, answer_13, answer_14, answer_15 = result
     con.close()
     f_n = 'css/style.css'
@@ -531,6 +580,7 @@ def fifth_ans():
 
 @app.route('/26')
 def sixth():
+    """ Функция с меню по задачам 26 типа """
     f_n = 'css/style.css'
     return render_template('sixth.html',
                            link=url_for('static', filename=f_n))
@@ -538,6 +588,7 @@ def sixth():
 
 @app.route('/26/<int:number>', methods=['POST', 'GET'])
 def sixth_tasks(number):
+    """ Функция для проверки задач 26 типа """
     con = sqlite3.connect("tasks.db")
     cur = con.cursor()
     string = """SELECT * FROM "26"
@@ -569,13 +620,14 @@ def sixth_tasks(number):
 
 @app.route('/26/answers')
 def sixth_ans():
+    """ Функция с шаблоном ответов по задачам 26 типа """
     con = sqlite3.connect("tasks.db")
     cur = con.cursor()
     string = """SELECT * FROM '26'"""
     res = cur.execute(string).fetchall()
     result = [elem[2] for elem in res]
     answer_1, answer_2, answer_3, answer_4, answer_5, answer_6,\
-    answer_7, answer_8, answer_9, answer_10, answer_11, \
+        answer_7, answer_8, answer_9, answer_10, answer_11, \
         answer_12, answer_13, answer_14, answer_15 = result
     con.close()
     f_n = 'css/style.css'
