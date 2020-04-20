@@ -41,10 +41,6 @@ def compilation():
         twenty_fth = request.form["24"]
         twenty_fifth = request.form["25"]
         twenty_sixth = request.form["26"]
-        file = "compilation.txt"
-        f = open(file, 'w').close()
-        f = open(file, encoding="utf8", mode="w")
-
         con = sqlite3.connect("tasks.db")
         cur = con.cursor()
         string = """SELECT * FROM '21'"""
@@ -57,10 +53,10 @@ def compilation():
             while n in lst:
                 n = random.choice(range(1, 15))
             lst.append(n)
+        ready_1 = ""
         for elem in lst:
-            print(result[elem], file=f)
-            print("Ответ:", answers[elem], file=f)
-            print("", file=f)
+            ready_1 += (result[elem] + "\n" + "Ответ: " + answers[elem]
+                        + "\n")
 
         string = """SELECT * FROM '22'"""
         res = cur.execute(string).fetchall()
@@ -72,10 +68,10 @@ def compilation():
             while n in lst:
                 n = random.choice(range(1, 15))
             lst.append(n)
+        ready_2 = ""
         for elem in lst:
-            print(result[elem], file=f)
-            print("Ответ:", answers[elem], file=f)
-            print("", file=f)
+            ready_2 += (result[elem] + "\n" + "Ответ: " + answers[elem]
+                        + "\n")
 
         string = """SELECT * FROM '23'"""
         res = cur.execute(string).fetchall()
@@ -87,10 +83,10 @@ def compilation():
             while n in lst:
                 n = random.choice(range(1, 15))
             lst.append(n)
+        ready_3 = ""
         for elem in lst:
-            print(result[elem], file=f)
-            print("Ответ:", answers[elem], file=f)
-            print("", file=f)
+            ready_3 += (result[elem] + "\n" + "Ответ: " + answers[elem]
+                        + "\n")
 
         string = """SELECT * FROM '24'"""
         res = cur.execute(string).fetchall()
@@ -102,10 +98,10 @@ def compilation():
             while n in lst:
                 n = random.choice(range(1, 15))
             lst.append(n)
+        ready_4 = ""
         for elem in lst:
-            print(result[elem], file=f)
-            print("Ответ:", answers[elem], file=f)
-            print("", file=f)
+            ready_4 += (result[elem] + "\n" + "Ответ: " + answers[elem]
+                        + "\n")
 
         string = """SELECT * FROM '25'"""
         res = cur.execute(string).fetchall()
@@ -117,10 +113,10 @@ def compilation():
             while n in lst:
                 n = random.choice(range(1, 15))
             lst.append(n)
+        ready_5 = ""
         for elem in lst:
-            print(result[elem], file=f)
-            print("Ответ:", answers[elem], file=f)
-            print("", file=f)
+            ready_5 += (result[elem] + "\n" + "Ответ: " + answers[elem]
+                        + "\n")
 
         string = """SELECT * FROM '26'"""
         res = cur.execute(string).fetchall()
@@ -132,20 +128,15 @@ def compilation():
             while n in lst:
                 n = random.choice(range(1, 15))
             lst.append(n)
+        ready_6 = ""
         for elem in lst:
-            print(result[elem], file=f)
-            print("Ответ:", answers[elem], file=f)
-            print("", file=f)
-        f.close()
-        f = open(file, encoding="utf8", mode="r")
-        print(f.read())
-        return render_template('result.html', link=url_for('static',
-                               filename='css/style.css'))
-
-
-@app.route('/download/<filename>')
-def download(filename):
-    return send_from_directory(filename=filename)
+            ready_6 += (result[elem] + "\n" + "Ответ: " + answers[elem]
+                      + "\n")
+        return render_template('your_tasks.html', link=url_for('static',
+                               filename='css/style.css'),
+                               ready_1=ready_1, ready_2=ready_2,
+                               ready_3=ready_3, ready_4=ready_4,
+                               ready_5=ready_5, ready_6=ready_6)
 
 
 @app.route('/random_tasks', methods=['POST', 'GET'])
